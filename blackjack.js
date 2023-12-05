@@ -1,3 +1,19 @@
+const getDeck = function() {
+  // Write function HERE
+  let cards = [];
+  let suits = ['hearts', 'spades', 'clubs', 'diamonds'];
+  for (let i = 0; i < suits.length; i++) {
+    cards.push({suit: suits[i], val: 10, displayVal: 'Jack'});
+    cards.push({suit: suits[i], val: 10, displayVal: 'Queen'});
+    cards.push({suit: suits[i], val: 10, displayVal: 'King'});
+    cards.push({suit: suits[i], val: 11, displayVal: 'Ace'});
+    for (let j = 2; j <= 10; j++) {
+      cards.push({suit: suits[i], val: j, displayVal: j.toString()});
+    }
+  }
+  return cards;
+}
+
 const blackjackDeck = getDeck();
 
 /**
