@@ -1,5 +1,5 @@
-const MY_API = "7Xlf363eswR0tyqs6Pweik77HWztxaox";
 
+const MY_API = "7Xlf363eswR0tyqs6Pweik77HWztxaox";
 function getBestSellers() {
   const dateInput = document.getElementById('date').value;
   const list = "hardcover-fiction";
