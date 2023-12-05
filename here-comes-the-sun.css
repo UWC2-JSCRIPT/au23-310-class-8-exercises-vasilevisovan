@@ -1,0 +1,10 @@
+.yellow-text {
+    position: fixed;
+    top: 1.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    color: yellow;
+    font-size: 26px;
+    font-weight: bold; 
+    display: none; /* Initially hide the yellow text */
+  }

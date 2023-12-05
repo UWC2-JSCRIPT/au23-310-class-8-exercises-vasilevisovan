@@ -1,34 +1,39 @@
-// create api-key.js file with const API_KEY="your_api_key" in this same directory to use
-
 const MY_API = "7Xlf363eswR0tyqs6Pweik77HWztxaox";
-const url = `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=${MY_API}`;
 
-const date = "2021-04-01";
-const list = "hardcover-fiction";
-const booksUrl = `https://api.nytimes.com/svc/books/v3/lists/${date}/${list}.json?api-key=${MY_API}`;
+function getBestSellers() {
+  const dateInput = document.getElementById('date').value;
+  const list = "hardcover-fiction";
 
+  if (dateInput) {
+    const booksUrl = `https://api.nytimes.com/svc/books/v3/lists/${dateInput}/${list}.json?api-key=${MY_API}`;
 
+    fetch(booksUrl)
+      .then(response => response.json())
+      .then(data => displayBooks(data.results.books.slice(0, 5)))
+      .catch(error => console.error('Error fetching data:', error));
+  } else {
+    alert('Please enter a valid date.');
+  }
+}
 
+function displayBooks(books) {
+  const resultContainer = document.getElementById('result');
+  resultContainer.innerHTML = ''; // Clear previous results
 
-const BASE_URL = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
-
-const url = `${BASE_URL}?q=tech&api-key=${API_KEY}`;
-
-fetch(url)
-  .then(function(data) {
-    return data.json();
-  })
-  .then(function(responseJson) {
-    console.log(responseJson);
-
-    let article = responseJson.response.docs[0];
-    console.log(article);
-
-    const mainHeadline = article.headline.main;
-    document.getElementById('article-title').innerText = mainHeadline;
-
-    if (article.multimedia.length > 0) {
-      const imgUrl = `https://www.nytimes.com/${article.multimedia[0].url}`;
-      document.getElementById('article-img').src = imgUrl;
-    }
+  books.forEach(book => {
+    const bookInfo =`
+      <div class="book-container">
+        <div class="book-info">
+          <h2>${book.title}</h2>
+          <p><strong>Author:</strong> ${book.author}</p>
+          <p><strong>Description:</strong> ${book.description || 'Not available'}</p>
+        </div>
+        <div class="book-image">
+          <img src="${book.book_image}" alt="${book.title} Cover" style="max-width: 200px; max-height: 300px;">
+        </div>
+      </div>
+      <hr>`;
+    
+    resultContainer.innerHTML += bookInfo;
   });
+}
